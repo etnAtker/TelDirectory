@@ -21,4 +21,5 @@ public:
 	EntryNode(string name, string telNumber);
 	
 	friend ostream & operator<<(ostream &out, const EntryNode *entry);
+	friend fstream & operator<<(fstream &out, const EntryNode *entry);
 };

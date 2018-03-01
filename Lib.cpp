@@ -7,13 +7,13 @@ Date::Date()
 	year = local->tm_year + 1900;
 	month = local->tm_mon + 1;
 	day = local->tm_mday;
-	week = local->tm_wday;
+	week = weekToStr(local->tm_wday);
 	hour = local->tm_hour;
 	min = local->tm_min;
 	sec = local->tm_sec;
 }
 
-string Date::weekToStr(void) const
+string Date::weekToStr(int week) const
 {
 	string wk;
 	switch (week) {
@@ -44,8 +44,20 @@ string Date::weekToStr(void) const
 ostream & operator<<(ostream &out, const Date *dt)
 {
 	out << dt->year << "-" << dt->month << "-" << dt->day
-		<< " " << dt->weekToStr() << " "
+		<< " " << dt->week << " "
 		<< dt->hour << ":" << dt->min << ":" << dt->sec;
+	return out;
+}
+
+fstream & operator<<(fstream & out, const Date * dt)
+{
+	out << dt->year << ";"
+		<< dt->month << ";"
+		<< dt->day << ";"
+		<< dt->hour << ";"
+		<< dt->min << ";"
+		<< dt->sec << ";"
+		<< dt->week << ";";
 	return out;
 }
 

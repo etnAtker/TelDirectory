@@ -15,7 +15,7 @@ bool TelDir::addNewEntry(string name, string telNumber)
 		return false;
 	}
 
-	if (head) {
+	if (!head) {
 		head = newEntry;
 		tail = newEntry;
 	} else {
@@ -66,8 +66,8 @@ void TelDir::showTitle(void)
 {
 	cout << setiosflags(ios::left)
 		<< setw(20) << "Name"
-		<< setw(15) << "Telephone Number"
-		<< "Save Time";
+		<< setw(20) << "Telephone Number"
+		<< "Save Time" << endl;
 }
 
 EntryNode* TelDir::findEntry(string name)
@@ -92,7 +92,8 @@ void TelDir::showTelDir(void)
 	showTitle();
 	EntryNode *entry = head;
 	while (entry) {
-		cout << entry;
+		cout << entry << endl;
+		entry = entry->next;
 	}
 }
 
@@ -150,7 +151,7 @@ void TelDir::modifyTelNumber(EntryNode *entry)
 	cout << "Input telephone number:";
 	string telNumber;
 	cin >> telNumber;
-	if (confirm) {
+	if (confirm()) {
 		entry->telNumber = telNumber;
 	}
 }
@@ -163,7 +164,7 @@ void TelDir::modifyName(EntryNode *entry)
 	cin >> name;
 
 	if (confirm()) {
-		if (addNewEntry) {
+		if (addNewEntry(name, telNumber)) {
 			delEntry(entry);
 		} else {
 			cout << "Can not create new entry.";

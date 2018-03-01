@@ -81,7 +81,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TelDir.cpp" />
     <ClCompile Include="TelEntry.cpp" />
-    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lib.h" />

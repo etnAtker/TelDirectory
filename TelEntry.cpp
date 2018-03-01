@@ -22,7 +22,15 @@ EntryNode::EntryNode(string name, string telNumber): TelEntry(name, telNumber)
 ostream & operator<<(ostream &out, const EntryNode *entry)
 {
 	out << setw(20) << entry->name
-		<< setw(15) << entry->telNumber
+		<< setw(20) << entry->telNumber
 		<< entry->dt;
+	return out;
+}
+
+fstream & operator<<(fstream & out, const EntryNode * entry)
+{
+	out << entry->name << ";" 
+		<< entry->telNumber << ";"
+		<< entry->dt << endl;
 	return out;
 }
