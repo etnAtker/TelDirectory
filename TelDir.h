@@ -6,16 +6,19 @@ class TelDir
 {
 public:
 	TelDir();
+	TelDir(fstream &file);
 
-	bool addNewEntry(string name, string telNumber);
+	bool addNewEntry(string &name, string &telNumber);
+	bool addNewEntry(vector<string> &list);
 	void showTelDir(void);
 	void showEntryByName(string name);
 	void delEntryByName(string name);
 	void modifyEntryByName(string name);
 	void showEntryByFirstChar(char c);
+	void save(fstream &file);
 
 private:
-	EntryNode * head, *tail;
+	EntryNode *head, *tail;
 
 	EntryNode* findInsertPosition(EntryNode *newEntry);
 	void insertEntry(EntryNode *position, EntryNode *newEntry);

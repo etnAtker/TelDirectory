@@ -8,7 +8,17 @@ TelDir::TelDir()
 	tail = nullptr;
 }
 
-bool TelDir::addNewEntry(string name, string telNumber)
+TelDir::TelDir(fstream &file)
+{
+	string entry;
+	while (getline(file, entry)) {
+		vector<string> list;
+		split(list, entry);
+		addNewEntry(list);
+	}
+}
+
+bool TelDir::addNewEntry(string &name, string &telNumber)
 {
 	EntryNode *newEntry = new EntryNode(name, telNumber);
 	if (!newEntry) {
@@ -22,6 +32,23 @@ bool TelDir::addNewEntry(string name, string telNumber)
 		EntryNode *position = findInsertPosition(newEntry);
 		insertEntry(position, newEntry);
 	}
+	return true;
+}
+
+bool TelDir::addNewEntry(vector<string> &list)
+{
+	EntryNode *newEntry = new EntryNode(list);
+	if (!newEntry) {
+		return false;
+	}
+
+	if (!head) {
+		head = newEntry;
+		tail = newEntry;
+	} else {
+		insertEntry(nullptr, newEntry);
+	}
+	return true;
 }
 
 EntryNode* TelDir::findInsertPosition(EntryNode *newEntry)
@@ -199,5 +226,14 @@ void TelDir::modifyEntryByName(string name)
 void TelDir::showEntryByFirstChar(char c)
 {
 
+}
+
+void TelDir::save(fstream & file)
+{
+	EntryNode *entry = head;
+	while (entry) {
+		file << entry << endl;
+		entry = entry->next;
+	}
 }
 

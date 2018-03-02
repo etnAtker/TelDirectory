@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <ctime>
 #include <iomanip>
 #include <vector>
@@ -15,6 +16,7 @@ private:
 
 public:
     Date();
+	Date(vector<string> &list);
 
 	string weekToStr(int wk) const;
 
@@ -25,3 +27,4 @@ public:
 bool confirm(void);
 bool checkInput(string input, int st, int ed);
 int askModifyMethod(void);
+void split(vector<string> list, string &str);

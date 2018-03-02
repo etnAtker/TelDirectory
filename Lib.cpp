@@ -13,6 +13,29 @@ Date::Date()
 	sec = local->tm_sec;
 }
 
+Date::Date(vector<string> &list)
+{
+	stringstream buffer;
+	buffer << list[2];
+	buffer >> year;
+	buffer.clear();
+	buffer << list[3];
+	buffer >> month;
+	buffer.clear();
+	buffer << list[4];
+	buffer >> day;
+	buffer.clear();
+	buffer << list[5];
+	buffer >> hour;
+	buffer.clear();
+	buffer << list[6];
+	buffer >> min;
+	buffer.clear();
+	buffer << list[7];
+	buffer >> sec;
+	week = list[8];
+}
+
 string Date::weekToStr(int week) const
 {
 	string wk;
@@ -96,4 +119,16 @@ int askModifyMethod(void)
 		cout << "1.Change name.\n2.Change telephone number.\n3.Return\nYour choose:\n";
 	}
 	return (input[0] - '0');
+}
+
+void split(vector<string> list, string &str)
+{
+	auto st = str.begin();
+	for (auto ch = str.begin(); ch != str.end(); ch++) {
+		if (*ch == ';') {
+			string frag(st, ch - 1);
+			list.push_back(frag);
+			st = ch + 1;
+		}
+	}
 }
