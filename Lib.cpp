@@ -64,15 +64,21 @@ string Date::weekToStr(int week) const
 	}
 }
 
-ostream & operator<<(ostream &out, const Date *dt)
+ostream& operator<<(ostream &out, const Date *dt)
 {
-	out << dt->year << "-" << dt->month << "-" << dt->day
-		<< " " << dt->week << " "
-		<< dt->hour << ":" << dt->min << ":" << dt->sec;
+	out << setiosflags(ios::right) << setfill('0')
+		<< dt->year << "-"  
+		<< setw(2) << dt->month << "-" 
+		<< setw(2) << dt->day << " " 
+		<< dt->week << " "
+		<< setw(2) << dt->hour << ":" 
+		<< setw(2) << dt->min << ":" 
+		<< setw(2) << dt->sec
+		<< resetiosflags(ios::right) << setfill(' ');
 	return out;
 }
 
-fstream & operator<<(fstream & out, const Date * dt)
+fstream& operator<<(fstream &out, const Date * dt)
 {
 	out << dt->year << ";"
 		<< dt->month << ";"
@@ -121,12 +127,12 @@ int askModifyMethod(void)
 	return (input[0] - '0');
 }
 
-void split(vector<string> list, string &str)
+void split(vector<string> &list, string &str)
 {
 	auto st = str.begin();
 	for (auto ch = str.begin(); ch != str.end(); ch++) {
 		if (*ch == ';') {
-			string frag(st, ch - 1);
+			string frag(st, ch);
 			list.push_back(frag);
 			st = ch + 1;
 		}

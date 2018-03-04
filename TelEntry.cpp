@@ -21,7 +21,7 @@ TelEntry::~TelEntry()
 
 EntryNode::EntryNode(string &name, string &telNumber): TelEntry(name, telNumber)
 {
-	prev =  nullptr;
+	prev = nullptr;
 	next = nullptr;
 }
 
@@ -41,8 +41,8 @@ ostream& operator<<(ostream &out, const EntryNode *entry)
 
 fstream& operator<<(fstream & out, const EntryNode * entry)
 {
-	out << entry->name << ";" 
-		<< entry->telNumber << ";"
-		<< entry->dt;
+	out << entry->name << ";"
+		<< entry->telNumber << ";";
+	out	<< entry->dt;
 	return out;
 }

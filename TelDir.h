@@ -9,7 +9,6 @@ public:
 	TelDir(fstream &file);
 
 	bool addNewEntry(string &name, string &telNumber);
-	bool addNewEntry(vector<string> &list);
 	void showTelDir(void);
 	void showEntryByName(string name);
 	void delEntryByName(string name);
@@ -28,4 +27,5 @@ private:
 	void modifyEntry(EntryNode *entry);
 	void modifyTelNumber(EntryNode *entry);
 	void modifyName(EntryNode *entry);
+	bool addNewEntry(vector<string> &list);
 };

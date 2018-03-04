@@ -27,4 +27,4 @@ public:
 bool confirm(void);
 bool checkInput(string input, int st, int ed);
 int askModifyMethod(void);
-void split(vector<string> list, string &str);
+void split(vector<string> &list, string &str);

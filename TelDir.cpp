@@ -10,6 +10,8 @@ TelDir::TelDir()
 
 TelDir::TelDir(fstream &file)
 {
+	head = nullptr;
+	tail = nullptr;
 	string entry;
 	while (getline(file, entry)) {
 		vector<string> list;
@@ -225,10 +227,10 @@ void TelDir::modifyEntryByName(string name)
 
 void TelDir::showEntryByFirstChar(char c)
 {
-
+	//TODO
 }
 
-void TelDir::save(fstream & file)
+void TelDir::save(fstream &file)
 {
 	EntryNode *entry = head;
 	while (entry) {
