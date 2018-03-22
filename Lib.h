@@ -8,6 +8,10 @@
 
 using namespace std;
 
+class TelDir;
+class TelEntry;
+class EntryNode;
+
 class Date 
 {
 private:

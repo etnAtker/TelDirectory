@@ -77,12 +77,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="Lib.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TelDir.cpp" />
     <ClCompile Include="TelEntry.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="Lib.h" />
     <ClInclude Include="TelDir.h" />
     <ClInclude Include="TelEntry.h" />

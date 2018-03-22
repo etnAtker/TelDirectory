@@ -138,3 +138,13 @@ void split(vector<string> &list, string &str)
 		}
 	}
 }
+
+void welcome(void)
+{
+	cout << "Welcome to use etnAtker's telephone directory!/nInitializing..." << endl;
+}
+
+TelDir* init(void)
+{
+	cout << "Loading save file..." << endl;
+}
