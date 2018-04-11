@@ -93,6 +93,7 @@ void TelDir::insertEntry(EntryNode * position, EntryNode * newEntry)
 
 void TelDir::showTitle(void)
 {
+	system("cls");
 	cout << setiosflags(ios::left)
 		<< setw(20) << "Name"
 		<< setw(20) << "Telephone Number"
@@ -179,9 +180,12 @@ void TelDir::modifyTelNumber(EntryNode *entry)
 {
 	cout << "Input telephone number:";
 	string telNumber;
-	cin >> telNumber;
+	inputLineFromCin(telNumber);
+	checkName(telNumber);
+
 	if (confirm()) {
 		entry->telNumber = telNumber;
+		cout << "Success." << endl;
 	}
 }
 
@@ -190,13 +194,15 @@ void TelDir::modifyName(EntryNode *entry)
 	cout << "Input name:";
 	string name;
 	string telNumber = entry->telNumber;
-	cin >> name;
+	inputLineFromCin(name);
+	checkName(name);
 
 	if (confirm()) {
 		if (addNewEntry(name, telNumber)) {
 			delEntry(entry);
+			cout << "Success." << endl;
 		} else {
-			cout << "Can not create new entry.";
+			cout << "Failed to allocate memory." << endl;
 		}
 	}
 }
@@ -209,6 +215,7 @@ void TelDir::delEntryByName(string name)
 		cout << entry;
 		if (confirm()) {
 			delEntry(entry);
+			cout << "Success." << endl;
 		}
 	} else {
 		cout << "No such entry.";

@@ -95,6 +95,7 @@ bool confirm(void)
 	cout << "Are you sure?[Y/N]" << endl;
 	string op;
 	cin >> op;
+	cin.ignore();
 	while (1) {
 		if (op[0] == 'Y' || op[0] == 'y') {
 			return 1;
@@ -107,9 +108,9 @@ bool confirm(void)
 	}
 }
 
-bool checkInput(string input, int st, int ed)
+bool checkInput(const string &input, int st, int ed)
 {
-	if (st + '0' <= input[0] && input[0] <= ed + '0') {
+	if (input.size() == 1 && (st + '0' <= input[0] && input[0] <= ed + '0')) {
 		return true;
 	}
 	return false;
@@ -117,10 +118,10 @@ bool checkInput(string input, int st, int ed)
 
 int askModifyMethod(void)
 {
-	int method;
 	string input;
 	cout << "1.Change name.\n2.Change telephone number.\n3.Return\nYour choose:\n";
 	cin >> input;
+	cin.ignore();
 	while (!checkInput(input, 1, 3)) {
 		cout << "1.Change name.\n2.Change telephone number.\n3.Return\nYour choose:\n";
 	}
@@ -139,12 +140,16 @@ void split(vector<string> &list, string &str)
 	}
 }
 
-void welcome(void)
+void checkName(string &input)
 {
-	cout << "Welcome to use etnAtker's telephone directory!/nInitializing..." << endl;
+	while (input.find(';') != string::npos) {
+		cout << "\nName or telephone number can not include \";\", please input again:";
+		inputLineFromCin(input);
+	}
 }
 
-TelDir* init(void)
+void inputLineFromCin(string &str)
 {
-	cout << "Loading save file..." << endl;
+	getline(cin, str);
+	//cin.ignore();
 }

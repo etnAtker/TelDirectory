@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <vector>
 #include <fstream>
+#include <Windows.h>
 
 using namespace std;
 
@@ -29,6 +30,9 @@ public:
 };
 
 bool confirm(void);
-bool checkInput(string input, int st, int ed);
+bool checkInput(const string &input, int st, int ed);
 int askModifyMethod(void);
 void split(vector<string> &list, string &str);
+void checkName(string &input);
+
+void inputLineFromCin(string &str);
