@@ -124,7 +124,7 @@ void showEntryByFirstChar(TelDir *dir)
 	string name;
 	cout << "First character(the first character will be taken if you input more than one):";
 	inputLineFromCin(name);
-	dir->showEntryByName(name);
+	dir->showEntryByName(name[0]);
 	system("pause");
 }
 
