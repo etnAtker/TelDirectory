@@ -37,7 +37,7 @@ bool TelDir::addNewEntry(string &name, string &telNumber)
 	return true;
 }
 
-bool TelDir::addNewEntry(vector<string> &list)
+bool TelDir::addNewEntry(const vector<string> &list)
 {
 	EntryNode *newEntry = new EntryNode(list);
 	if (!newEntry) {
@@ -51,6 +51,19 @@ bool TelDir::addNewEntry(vector<string> &list)
 		insertEntry(nullptr, newEntry);
 	}
 	return true;
+}
+
+EntryNode* TelDir::selectEntry(const vector<EntryNode*>& list)
+{
+	cout << "Result includes more than one entry. Please select the entry you want to modify:" << endl;
+	cout << "\t";
+	showTitle();
+	for (vector<EntryNode*>::const_iterator entry = list.begin(); entry != list.end(); entry++) {
+		cout << entry - list.begin() + 1 << "\t" << *entry << endl;
+	}
+	cout << "Your choise:";
+	int choise = getNumber(1, list.size());
+	return *(list.begin() + choise - 1);
 }
 
 EntryNode* TelDir::findInsertPosition(EntryNode *newEntry)
@@ -93,24 +106,35 @@ void TelDir::insertEntry(EntryNode * position, EntryNode * newEntry)
 
 void TelDir::showTitle(void)
 {
-	system("cls");
+	//system("cls");
 	cout << setiosflags(ios::left)
-		<< setw(20) << "Name"
-		<< setw(20) << "Telephone Number"
+		<< setw(30) << "Name"
+		<< setw(30) << "Telephone Number"
 		<< "Save Time" << endl;
 }
 
-EntryNode* TelDir::findEntry(string name)
+void TelDir::findEntry(string name, vector<EntryNode*> &list)
 {
 	EntryNode *entry = head;
 	EntryNode *result = nullptr;
 	while (entry) {
 		if (entry->name == name) {
-			result = entry;
-			break;
+			list.push_back(entry);
 		}
+		entry = entry->next;
 	}
-	return result;
+}
+
+void TelDir::findEntry(char c, vector<EntryNode*>& list)
+{
+	EntryNode *entry = head;
+	EntryNode *result = nullptr;
+	while (entry) {
+		if (entry->name[0] == c) {
+			list.push_back(entry);
+		}
+		entry = entry->next;
+	}
 }
 
 void TelDir::showTelDir(void)
@@ -129,10 +153,27 @@ void TelDir::showTelDir(void)
 
 void TelDir::showEntryByName(string name)
 {
-	EntryNode *entry = findEntry(name);
-	if (entry) {
+	vector<EntryNode*> list;
+	findEntry(name, list);
+	if (list.size() != 0) {
 		showTitle();
-		cout << entry;
+		for (vector<EntryNode*>::iterator entry = list.begin(); entry != list.end(); entry++) {
+			cout << *entry << endl;
+		}
+	} else {
+		cout << "No such entry.";
+	}
+}
+
+void TelDir::showEntryByName(char c)
+{
+	vector<EntryNode*> list;
+	findEntry(c, list);
+	if (list.size() != 0) {
+		showTitle();
+		for (vector<EntryNode*>::iterator entry = list.begin(); entry != list.end(); entry++) {
+			cout << *entry << endl;
+		}
 	} else {
 		cout << "No such entry.";
 	}
@@ -164,10 +205,10 @@ void TelDir::modifyEntry(EntryNode *entry)
 	int method = askModifyMethod();
 	switch (method) {
 	case 1:
-		modifyTelNumber(entry);
+		modifyName(entry);
 		break;
 	case 2:
-		modifyName(entry);
+		modifyTelNumber(entry);
 		break;
 	case 3:
 		break;
@@ -209,10 +250,17 @@ void TelDir::modifyName(EntryNode *entry)
 
 void TelDir::delEntryByName(string name)
 {
-	EntryNode *entry = findEntry(name);
-	if (entry) {
+	vector<EntryNode*> list;
+	findEntry(name, list);
+	if (list.size() == 1) {
 		showTitle();
-		cout << entry;
+		cout << list[0] << endl;
+		if (confirm()) {
+			delEntry(list[0]);
+			cout << "Success." << endl;
+		}
+	} else if(list.size() > 1) {
+		EntryNode* entry = selectEntry(list);
 		if (confirm()) {
 			delEntry(entry);
 			cout << "Success." << endl;
@@ -224,9 +272,13 @@ void TelDir::delEntryByName(string name)
 
 void TelDir::modifyEntryByName(string name)
 {
-	EntryNode *entry = findEntry(name);
-	if (entry) {
-		modifyEntry(entry);
+	vector<EntryNode*> list;
+	findEntry(name, list);
+	if (list.size() == 1) {
+		cout << list[0] << endl;
+		modifyEntry(list[0]);
+	} else if(list.size() > 1) {
+		modifyEntry(selectEntry(list));
 	} else {
 		cout << "No such entry.";
 	}

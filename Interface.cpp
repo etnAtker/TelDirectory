@@ -46,37 +46,29 @@ void menu(void)
 
 void readChoise(TelDir *dir)
 {
-	string ch;
-	cin >> ch;
-	cin.ignore();
-	if (checkInput(ch, 0, 6)) {
-		int op = ch[0] - '0';
-		switch (op) {
-		case 0:
-			quitAndSave(dir);
-		case 1:
-			addNewEntry(dir);
-			return;
-		case 2:
-			dir->showTelDir();
-			system("pause");
-			return;
-		case 3:
-			showEntryByName(dir);
-			return;
-		case 4:
-			delEntryByName(dir);
-			return;
-		case 5:
-			modifyEntryByName(dir);
-			return;
-		case 6:
-			showEntryByFirstChar(dir);
-			return;
-		}
-	} else {
-		cout << "Input error! Please enter a correct number." << endl;
+	int op = getNumber(0, 6);
+	switch (op) {
+	case 0:
+	quitAndSave(dir);
+	case 1:
+		addNewEntry(dir);
+		return;
+	case 2:
+		dir->showTelDir();
 		system("pause");
+		return;
+	case 3:
+		showEntryByName(dir);
+		return;
+	case 4:
+		delEntryByName(dir);
+		return;
+	case 5:
+		modifyEntryByName(dir);
+		return;
+	case 6:
+		showEntryByFirstChar(dir);
+		return;
 	}
 }
 
@@ -128,7 +120,13 @@ void modifyEntryByName(TelDir *dir)
 }
 
 void showEntryByFirstChar(TelDir *dir)
-{}
+{
+	string name;
+	cout << "First character(the first character will be taken if you input more than one):";
+	inputLineFromCin(name);
+	dir->showEntryByName(name);
+	system("pause");
+}
 
 void quitAndSave(TelDir *dir)
 {

@@ -13,7 +13,7 @@ Date::Date()
 	sec = local->tm_sec;
 }
 
-Date::Date(vector<string> &list)
+Date::Date(const vector<string> &list)
 {
 	stringstream buffer;
 	buffer << list[2];
@@ -95,7 +95,7 @@ bool confirm(void)
 	cout << "Are you sure?[Y/N]" << endl;
 	string op;
 	cin >> op;
-	cin.ignore();
+	cin.ignore(0xffffff, '\n');
 	while (1) {
 		if (op[0] == 'Y' || op[0] == 'y') {
 			return 1;
@@ -104,28 +104,34 @@ bool confirm(void)
 			return 0;
 		} else {
 			cout << "[Y/N]?" << endl;
+			cin >> op;
+			cin.ignore(0xffffff, '\n');
 		}
 	}
 }
 
 bool checkInput(const string &input, int st, int ed)
 {
-	if (input.size() == 1 && (st + '0' <= input[0] && input[0] <= ed + '0')) {
-		return true;
+	for (string::const_iterator ch = input.begin(); ch != input.end(); ch++) {
+		if (!('0' <= *ch && *ch <= '9')) {
+			return false;
+		}
 	}
-	return false;
+	stringstream ss;
+	int num = 0;
+	ss << input;
+	ss >> num;
+	if (!(st <= num && num <= ed)) {
+		return false;
+	}
+	return true;
 }
 
 int askModifyMethod(void)
 {
 	string input;
 	cout << "1.Change name.\n2.Change telephone number.\n3.Return\nYour choose:\n";
-	cin >> input;
-	cin.ignore();
-	while (!checkInput(input, 1, 3)) {
-		cout << "1.Change name.\n2.Change telephone number.\n3.Return\nYour choose:\n";
-	}
-	return (input[0] - '0');
+	return getNumber(1, 3);
 }
 
 void split(vector<string> &list, string &str)
@@ -146,6 +152,23 @@ void checkName(string &input)
 		cout << "\nName or telephone number can not include \";\", please input again:";
 		inputLineFromCin(input);
 	}
+}
+
+int getNumber(int st, int ed)
+{
+	string input;
+	cin >> input;
+	cin.ignore(0xffffff, '\n');
+	while (!checkInput(input, st, ed)) {
+		cout << "Input error! Please enter a correct number." << endl;
+		cin >> input;
+		cin.ignore(0xffffff, '\n');
+	}
+	stringstream ss;
+	int num;
+	ss << input;
+	ss >> num;
+	return num;
 }
 
 void inputLineFromCin(string &str)

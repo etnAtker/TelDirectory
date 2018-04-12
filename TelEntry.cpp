@@ -7,7 +7,7 @@ TelEntry::TelEntry(string &name, string &telNumber)
     this->telNumber = telNumber;
 }
 
-TelEntry::TelEntry(vector<string> &list)
+TelEntry::TelEntry(const vector<string> &list)
 {
 	dt = new Date(list);
 	name = list[0];
@@ -25,7 +25,7 @@ EntryNode::EntryNode(string &name, string &telNumber): TelEntry(name, telNumber)
 	next = nullptr;
 }
 
-EntryNode::EntryNode(vector<string> &list): TelEntry(list)
+EntryNode::EntryNode(const vector<string> &list): TelEntry(list)
 {
 	prev = nullptr;
 	next = nullptr;
@@ -33,8 +33,8 @@ EntryNode::EntryNode(vector<string> &list): TelEntry(list)
 
 ostream& operator<<(ostream &out, const EntryNode *entry)
 {
-	out << setw(20) << entry->name
-		<< setw(20) << entry->telNumber
+	out << setw(30) << entry->name
+		<< setw(30) << entry->telNumber
 		<< entry->dt;
 	return out;
 }

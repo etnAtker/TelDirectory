@@ -10,7 +10,7 @@ public:
 	const Date *dt;
 
     TelEntry(string &name, string &telNumber);
-	TelEntry(vector<string> &list);
+	TelEntry(const vector<string> &list);
 	~TelEntry();
 };
 
@@ -20,7 +20,7 @@ public:
 	EntryNode *prev, *next;
 
 	EntryNode(string &name, string &telNumber);
-	EntryNode(vector<string> &list);
+	EntryNode(const vector<string> &list);
 	
 	friend ostream& operator<<(ostream &out, const EntryNode *entry);
 	friend fstream& operator<<(fstream &out, const EntryNode *entry);

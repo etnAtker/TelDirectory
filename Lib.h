@@ -21,7 +21,7 @@ private:
 
 public:
     Date();
-	Date(vector<string> &list);
+	Date(const vector<string> &list);
 
 	string weekToStr(int wk) const;
 
@@ -34,5 +34,6 @@ bool checkInput(const string &input, int st, int ed);
 int askModifyMethod(void);
 void split(vector<string> &list, string &str);
 void checkName(string &input);
+int getNumber(int st, int ed);
 
 void inputLineFromCin(string &str);
