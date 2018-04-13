@@ -39,7 +39,7 @@ ostream& operator<<(ostream &out, const EntryNode *entry)
 	return out;
 }
 
-fstream& operator<<(fstream & out, const EntryNode * entry)
+fstream& operator<<(fstream & out, const EntryNode *entry)
 {
 	out << entry->name << ";"
 		<< entry->telNumber << ";";

@@ -1,6 +1,6 @@
 #include "TelDir.h"
 
-TelDir* init(void);
+TelDir* init(void);	//Load save file or creative a empty directory
 void welcome(void);
 
 void mainLoop(TelDir *dir);

@@ -49,7 +49,7 @@ void readChoise(TelDir *dir)
 	int op = getNumber(0, 6);
 	switch (op) {
 	case 0:
-	quitAndSave(dir);
+		quitAndSave(dir);
 	case 1:
 		addNewEntry(dir);
 		return;
@@ -131,7 +131,15 @@ void showEntryByFirstChar(TelDir *dir)
 void quitAndSave(TelDir *dir)
 {
 	fstream sav("data.sav", ios::out);
-	dir->save(sav);
-	delete dir;
-	exit(0);
+	if (sav) {
+		dir->save(sav);
+		delete dir;
+		exit(0);
+	} else {
+		cout << "Fail to open the save file. Program will quit.";
+		if (confirm()) {
+			delete dir;
+			exit(0);
+		}
+	}
 }

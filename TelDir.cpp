@@ -20,6 +20,16 @@ TelDir::TelDir(fstream &file)
 	}
 }
 
+TelDir::~TelDir()
+{
+	EntryNode *entry = head, *next;
+	while (entry) {
+		next = entry->next;
+		delete entry;
+		entry = next;
+	}
+}
+
 bool TelDir::addNewEntry(string &name, string &telNumber)
 {
 	EntryNode *newEntry = new EntryNode(name, telNumber);
@@ -220,13 +230,18 @@ void TelDir::modifyEntry(EntryNode *entry)
 void TelDir::modifyTelNumber(EntryNode *entry)
 {
 	cout << "Input telephone number:";
+	string name = entry->name;
 	string telNumber;
 	inputLineFromCin(telNumber);
 	checkName(telNumber);
 
 	if (confirm()) {
-		entry->telNumber = telNumber;
-		cout << "Success." << endl;
+		if (addNewEntry(name, telNumber)) {
+			delEntry(entry);
+			cout << "Success." << endl;
+		} else {
+			cout << "Failed to allocate memory." << endl;
+		}
 	}
 }
 
@@ -282,11 +297,6 @@ void TelDir::modifyEntryByName(string name)
 	} else {
 		cout << "No such entry.";
 	}
-}
-
-void TelDir::showEntryByFirstChar(char c)
-{
-	//TODO
 }
 
 void TelDir::save(fstream &file)

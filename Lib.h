@@ -25,15 +25,15 @@ public:
 
 	string weekToStr(int wk) const;
 
-    friend ostream & operator<<(ostream &out, const Date *dt);
-	friend fstream & operator<<(fstream &out, const Date *dt);
+    friend ostream & operator<<(ostream &out, const Date *dt);	//Output date to console
+	friend fstream & operator<<(fstream &out, const Date *dt);	//Output date to file
 };
 
-bool confirm(void);
-bool checkInput(const string &input, int st, int ed);
+bool confirm(void);	//Ask user if it is confirmed.
+bool checkInput(const string &input, int st, int ed);	//Check that if the string is a number and between st and ed
 int askModifyMethod(void);
-void split(vector<string> &list, string &str);
-void checkName(string &input);
-int getNumber(int st, int ed);
+void split(vector<string> &list, string &str);	//Split string by ';'
+void checkName(string &input);	//Check that if the string includes ';'
+int getNumber(int st, int ed);	//Get a number between st and ed;
 
-void inputLineFromCin(string &str);
+void inputLineFromCin(string &str); //Input a line of text and clear the input buffer.

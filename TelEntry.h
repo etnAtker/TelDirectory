@@ -12,7 +12,7 @@ public:
     TelEntry(string &name, string &telNumber);
 	TelEntry(const vector<string> &list);
 	~TelEntry();
-};
+};	//Save the data
 
 class EntryNode: public TelEntry
 {
@@ -24,4 +24,4 @@ public:
 	
 	friend ostream& operator<<(ostream &out, const EntryNode *entry);
 	friend fstream& operator<<(fstream &out, const EntryNode *entry);
-};
+};	//Change the entry to a node in chain table
